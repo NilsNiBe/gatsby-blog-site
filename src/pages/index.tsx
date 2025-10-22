@@ -1,6 +1,6 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
 interface NewsItem {
@@ -128,8 +128,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
             Werden Sie Teil unserer Gemeinschaft und unterstützen Sie unsere wichtige Arbeit.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a 
-              href="/spenden" 
+            <Link 
+              to="/spenden" 
               style={{ 
                 backgroundColor: '#AA0000', 
                 color: 'white', 
@@ -140,9 +140,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
               }}
             >
               Jetzt spenden
-            </a>
-            <a 
-              href="/der-verein" 
+            </Link>
+            <Link 
+              to="/der-verein" 
               style={{ 
                 backgroundColor: '#333333', 
                 color: 'white', 
@@ -153,9 +153,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
               }}
             >
               Mitglied werden
-            </a>
-            <a 
-              href="/kontakt" 
+            </Link>
+            <Link 
+              to="/kontakt" 
               style={{ 
                 backgroundColor: '#666666', 
                 color: 'white', 
@@ -166,7 +166,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
               }}
             >
               Kontakt aufnehmen
-            </a>
+            </Link>
           </div>
         </section>
       </div>
