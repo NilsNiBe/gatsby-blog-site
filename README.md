@@ -1,22 +1,32 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal TypeScript Starter
-</h1>
+# 🌍 Verein Partnerschaft Ghana - Website
 
-## 🚀 Quick start
+Website für den Verein zur Unterstützung der Partnerschaft mit Kalba, Ghana.
 
-1.  **Create a Gatsby site.**
+## 🚀 GitHub Pages Deployment
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+Diese Website wird automatisch auf GitHub Pages deployed.
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
+### � Automatisches Deployment
+- Jeder Push auf den `main` Branch löst automatisch ein Deployment aus
+- GitHub Actions buildet die Seite und deployed sie auf GitHub Pages
+- Die Website ist dann unter `https://nilsnibe.github.io/gatsby-blog-site` verfügbar
+
+### 📝 Neuigkeiten hinzufügen
+1. Neue `.md` Datei in `src/content/neuigkeiten/` erstellen
+2. Frontmatter hinzufügen:
+   ```yaml
+   ---
+   title: "Titel der Neuigkeit"
+   date: "2024-10-22" 
+   priority: 1
+   excerpt: "Kurze Beschreibung"
+   ---
+   ```
+3. Datei committen und pushen - automatisches Deployment!
+
+## 🛠️ Entwicklung
+
+### Lokale Entwicklung starten
 
 2.  **Start developing.**
 
