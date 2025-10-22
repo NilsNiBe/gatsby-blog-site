@@ -1,8 +1,27 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 
-const IndexPage: React.FC<PageProps> = () => {
+interface NewsItem {
+  id: string
+  frontmatter: {
+    title: string
+    date: string
+    excerpt: string
+    priority: number
+  }
+}
+
+interface IndexPageProps extends PageProps {
+  data: {
+    allMarkdownRemark: {
+      nodes: NewsItem[]
+    }
+  }
+}
+
+const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   return (
     <Layout>
       <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
@@ -10,7 +29,7 @@ const IndexPage: React.FC<PageProps> = () => {
           Willkommen bei unserem Verein
         </h1>
         
-        <section style={{ marginBottom: '3rem' }}>
+        <section style={{ marginBottom: '2rem' }}>
           <h2>Partnerschaft mit Kalba, Ghana</h2>
           <p style={{ fontSize: '1.1rem', lineHeight: '1.6', color: '#555' }}>
             Wir sind ein gemeinnütziger Verein, der sich für nachhaltige Entwicklungszusammenarbeit 
@@ -19,39 +38,49 @@ const IndexPage: React.FC<PageProps> = () => {
         </section>
 
         <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-          gap: '2rem',
-          marginBottom: '3rem'
+          display: 'flex', 
+          justifyContent: 'space-between',
+          gap: '1rem',
+          marginBottom: '3rem',
+          flexWrap: 'wrap'
         }}>
           <div style={{ 
             backgroundColor: '#fff0f0', 
-            padding: '2rem', 
-            borderRadius: '10px',
-            border: '2px solid #AA0000'
+            padding: '1rem', 
+            borderRadius: '8px',
+            border: '2px solid #AA0000',
+            flex: '1',
+            minWidth: '200px',
+            textAlign: 'center'
           }}>
-            <h3 style={{ color: '#AA0000', marginTop: 0 }}>🏫 Bildung</h3>
-            <p>Unterstützung von Schulprojekten und Bildungsinitiativen für Kinder und Jugendliche in Ghana.</p>
+            <h4 style={{ color: '#AA0000', margin: '0 0 0.5rem 0', fontSize: '1rem' }}>🏫 Bildung</h4>
+            <p style={{ margin: 0, fontSize: '0.9rem' }}>Schulprojekte und Bildungsinitiativen</p>
           </div>
           
           <div style={{ 
             backgroundColor: '#f8f8f8', 
-            padding: '2rem', 
-            borderRadius: '10px',
-            border: '2px solid #333333'
+            padding: '1rem', 
+            borderRadius: '8px',
+            border: '2px solid #333333',
+            flex: '1',
+            minWidth: '200px',
+            textAlign: 'center'
           }}>
-            <h3 style={{ color: '#333333', marginTop: 0 }}>💧 Infrastruktur</h3>
-            <p>Bau von Brunnen, Gesundheitsstationen und anderen wichtigen Infrastrukturprojekten.</p>
+            <h4 style={{ color: '#333333', margin: '0 0 0.5rem 0', fontSize: '1rem' }}>💧 Infrastruktur</h4>
+            <p style={{ margin: 0, fontSize: '0.9rem' }}>Brunnen und Gesundheitsstationen</p>
           </div>
           
           <div style={{ 
             backgroundColor: '#ffffff', 
-            padding: '2rem', 
-            borderRadius: '10px',
-            border: '2px solid #666666'
+            padding: '1rem', 
+            borderRadius: '8px',
+            border: '2px solid #666666',
+            flex: '1',
+            minWidth: '200px',
+            textAlign: 'center'
           }}>
-            <h3 style={{ color: '#666666', marginTop: 0 }}>🤝 Partnerschaft</h3>
-            <p>Kultureller Austausch und langfristige Partnerschaften zwischen den Gemeinden.</p>
+            <h4 style={{ color: '#666666', margin: '0 0 0.5rem 0', fontSize: '1rem' }}>🤝 Partnerschaft</h4>
+            <p style={{ margin: 0, fontSize: '0.9rem' }}>Kultureller Austausch</p>
           </div>
         </div>
 
@@ -59,24 +88,38 @@ const IndexPage: React.FC<PageProps> = () => {
           backgroundColor: '#f9f9f9', 
           padding: '2rem', 
           borderRadius: '10px',
-          textAlign: 'left'
+          textAlign: 'left',
+          marginBottom: '3rem'
         }}>
           <h2>Aktuelle Neuigkeiten</h2>
-          <div style={{ marginBottom: '1rem' }}>
-            <h4 style={{ color: '#AA0000', marginBottom: '0.5rem' }}>Neue Schule erfolgreich eröffnet</h4>
-            <p style={{ margin: 0, color: '#666' }}>
-              Die mit Ihrer Hilfe erbaute Grundschule in Kalba wurde feierlich eröffnet. 
-              200 Kinder haben nun Zugang zu moderner Bildung.
+          {data.allMarkdownRemark.nodes.length > 0 ? (
+            data.allMarkdownRemark.nodes.map((news) => (
+              <div key={news.id} style={{ marginBottom: '1.5rem' }}>
+                <h4 style={{ color: '#AA0000', marginBottom: '0.5rem' }}>
+                  {news.frontmatter.title}
+                </h4>
+                <p style={{ 
+                  margin: 0, 
+                  color: '#666',
+                  fontSize: '0.9rem',
+                  marginBottom: '0.5rem'
+                }}>
+                  {new Date(news.frontmatter.date).toLocaleDateString('de-DE', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+                <p style={{ margin: 0, color: '#666' }}>
+                  {news.frontmatter.excerpt}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p style={{ color: '#666' }}>
+              Derzeit sind keine Neuigkeiten verfügbar.
             </p>
-          </div>
-          
-          <div>
-            <h4 style={{ color: '#AA0000', marginBottom: '0.5rem' }}>Spendenaktion erfolgreich abgeschlossen</h4>
-            <p style={{ margin: 0, color: '#666' }}>
-              Dank der großzügigen Unterstützung unserer Mitglieder konnten wir 
-              15.000 € für das Brunnenprojekt sammeln.
-            </p>
-          </div>
+          )}
         </section>
 
         <section style={{ marginTop: '3rem', textAlign: 'center' }}>
@@ -132,5 +175,25 @@ const IndexPage: React.FC<PageProps> = () => {
 }
 
 export default IndexPage
+
+export const query = graphql`
+  query {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/neuigkeiten/" } }
+      sort: { frontmatter: { date: DESC } }
+      limit: 3
+    ) {
+      nodes {
+        id
+        frontmatter {
+          title
+          date
+          excerpt
+          priority
+        }
+      }
+    }
+  }
+`
 
 export const Head: HeadFC = () => <title>Startseite - Verein Partnerschaft Ghana</title>
