@@ -246,7 +246,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: #667eea;
+    background: #AA0000;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -254,6 +254,7 @@
     transform: translateY(-100vh);
     transition: transform 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 100vw;
   }
 
   .navListOpen {
@@ -268,20 +269,39 @@
   .dropdownBtn {
     width: 100%;
     text-align: left;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .navItem a:hover,
+  .dropdownBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
   }
 
   .dropdown {
     position: static;
     box-shadow: none;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     margin: 0;
+    border-radius: 0;
+    min-width: 100%;
+    width: 100%;
   }
 
   .dropdown li a {
     color: white;
-    padding-left: 2rem;
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dropdown li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-left-color: white;
   }
 
   .searchContainer {
